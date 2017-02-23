@@ -3,7 +3,6 @@ package com.test.githubsearch.utils;
 import android.content.Context;
 import android.net.Uri;
 import android.support.customtabs.CustomTabsIntent;
-import android.support.v4.content.ContextCompat;
 
 import com.test.githubsearch.R;
 
@@ -15,7 +14,7 @@ public class ChromeCustomTabUtils {
 
     public static void openUrl(Context context, String url) {
 
-        if (context == null || url == null) {
+        if (context == null || url == null || url.isEmpty()) {
             return;
         }
 
@@ -23,8 +22,8 @@ public class ChromeCustomTabUtils {
 
         CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
 
-        intentBuilder.setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary));
-        intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        intentBuilder.setToolbarColor(ResourceUtils.getColor(R.color.colorPrimary));
+        intentBuilder.setSecondaryToolbarColor(ResourceUtils.getColor(R.color.colorPrimaryDark));
 
         intentBuilder.setStartAnimations(context, R.anim.slide_in_right, R.anim.slide_out_left);
         intentBuilder.setExitAnimations(context, android.R.anim.slide_in_left,

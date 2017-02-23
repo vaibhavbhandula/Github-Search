@@ -2,6 +2,7 @@ package com.test.githubsearch.utils;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 
 import java.lang.ref.WeakReference;
 
@@ -28,4 +29,9 @@ public class ResourceUtils {
     @NonNull public static String getString(int id, Object... args) {
         return getContext().getResources().getString(id, args);
     }
+
+    public static int getColor(int color) {
+        return ContextCompat.getColor(getContext(), color);
+    }
+
 }
