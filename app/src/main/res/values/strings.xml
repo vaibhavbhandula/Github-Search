@@ -3,6 +3,7 @@
     <string name="enter_search">Enter Keyword to Search on Github</string>
     <string name="search">Search</string>
     <string name="empty_search">Search key cannot be empty!</string>
+    <string name="empty_results">Search return no results!</string>
     <string name="loading">Loading&#8230;</string>
     <string name="search_fail">Something went wrong!</string>
     <string name="forks">Forks: %1$d</string>

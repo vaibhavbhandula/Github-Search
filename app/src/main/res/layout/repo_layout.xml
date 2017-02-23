@@ -17,15 +17,35 @@
         android:orientation="vertical"
         android:padding="@dimen/size4">
 
-        <TextView
-            android:id="@+id/tv_repo_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size4"
-            android:layout_marginRight="@dimen/size4"
-            android:text="@string/enter_search"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/text_size_20" />
+        <RelativeLayout
+            android:id="@+id/name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_repo_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/size4"
+                android:layout_marginRight="@dimen/size4"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@string/enter_search"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_size_20" />
+
+            <com.varunest.sparkbutton.SparkButton
+                android:id="@+id/bookmark_icon"
+                android:layout_width="@dimen/size20"
+                android:layout_height="@dimen/size20"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/size4"
+                app:sparkbutton_activeImage="@drawable/ic_star_on"
+                app:sparkbutton_iconSize="@dimen/size20"
+                app:sparkbutton_inActiveImage="@drawable/ic_star_off" />
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_repo_description"

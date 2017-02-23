@@ -5,12 +5,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.test.githubsearch.R;
 import com.test.githubsearch.data.GithubRepo;
 import com.test.githubsearch.utils.ChromeCustomTabUtils;
 import com.test.githubsearch.utils.ResourceUtils;
+import com.varunest.sparkbutton.SparkButton;
+import com.varunest.sparkbutton.SparkEventListener;
 
 import java.util.ArrayList;
 
@@ -51,15 +55,19 @@ public class RepoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         @BindView(R.id.tv_repo_description) TextView tvDescription;
         @BindView(R.id.tv_forks) TextView tvForks;
         @BindView(R.id.tv_watchers) TextView tvWatchers;
+        @BindView(R.id.bookmark_icon) SparkButton bookmarkIcon;
 
         GithubRepo repo;
+        View view;
 
         RepoHolder(View itemView) {
             super(itemView);
+            view = itemView;
             ButterKnife.bind(this, itemView);
         }
 
         void bind(int position) {
+            setWidth();
             repo = githubRepos.get(position);
             tvRepoName.setText(repo.getFullName());
             if (repo.getDescription() == null || repo.getDescription().isEmpty()) {
@@ -70,6 +78,21 @@ public class RepoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
             tvForks.setText(ResourceUtils.getString(R.string.forks, repo.getNumberOfForks()));
             tvWatchers.setText(ResourceUtils.getString(R.string.watchers, repo.getNumberOfWatchers()));
+            bookmarkIcon.setChecked(repo.isBookmark());
+            bookmarkIcon.setEventListener(new SparkEventListener() {
+                @Override public void onEvent(ImageView button, boolean buttonState) {
+                    repo.setBookmark(buttonState);
+                }
+            });
+        }
+
+        private void setWidth() {
+            RelativeLayout layout = ButterKnife.findById(view, R.id.name_layout);
+            layout.measure(0, 0);
+            int nameLayoutWidth = layout.getMeasuredWidth();
+            int likeButtonWidth = ButterKnife.findById(view, R.id.bookmark_icon).getLayoutParams().width;
+
+            tvRepoName.getLayoutParams().width = nameLayoutWidth - likeButtonWidth;
         }
 
         @OnClick(R.id.repo_layout) void openRepo() {
