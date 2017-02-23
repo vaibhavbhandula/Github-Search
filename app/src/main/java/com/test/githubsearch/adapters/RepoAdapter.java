@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.test.githubsearch.R;
+import com.test.githubsearch.activities.SearchActivity;
 import com.test.githubsearch.data.GithubRepo;
 import com.test.githubsearch.utils.ChromeCustomTabUtils;
 import com.test.githubsearch.utils.ResourceUtils;
@@ -48,6 +49,12 @@ public class RepoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override public int getItemCount() {
         return githubRepos.size();
+    }
+
+    public void addRepos(ArrayList<GithubRepo> repos) {
+        int pos = this.githubRepos.size();
+        this.githubRepos.addAll(repos);
+        notifyItemInserted(pos + 1);
     }
 
     protected class RepoHolder extends RecyclerView.ViewHolder {
@@ -90,6 +97,12 @@ public class RepoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                 }
             });
+
+            if (position == githubRepos.size() - 1) {
+                if (context instanceof SearchActivity) {
+                    ((SearchActivity) context).searchNextPage();
+                }
+            }
         }
 
         private void setWidth() {

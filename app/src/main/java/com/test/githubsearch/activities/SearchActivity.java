@@ -107,6 +107,7 @@ public class SearchActivity extends AppCompatActivity {
                     }
                     if (addToAdapter) {
                         // notify in adapter of items added
+                        addInAdapter(response.body().getRepositories());
                     } else {
                         setUpAdapter();
                     }
@@ -126,6 +127,12 @@ public class SearchActivity extends AppCompatActivity {
     public void searchNextPage() {
         pageNo++;
         makeSearchCall(true);
+    }
+
+    private void addInAdapter(ArrayList<GithubRepo> repos) {
+        if (repoAdapter != null) {
+            repoAdapter.addRepos(repos);
+        }
     }
 
     private void showProgress() {
