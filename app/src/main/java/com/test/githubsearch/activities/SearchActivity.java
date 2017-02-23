@@ -128,9 +128,11 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void searchNextPage() {
-        progressBar.setVisibility(View.VISIBLE);
-        pageNo++;
-        makeSearchCall(true);
+        if (!type.equals(KEY_BOOKMARK)) {
+            progressBar.setVisibility(View.VISIBLE);
+            pageNo++;
+            makeSearchCall(true);
+        }
     }
 
     private void addInAdapter(ArrayList<GithubRepo> repos) {
