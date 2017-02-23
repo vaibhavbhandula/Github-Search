@@ -36,6 +36,7 @@ public class RepoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public RepoAdapter(Context context, ArrayList<GithubRepo> githubRepos) {
         this.context = context;
         this.githubRepos = githubRepos;
+        Utils.markBookmark(this.githubRepos);
     }
 
     @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -54,6 +55,7 @@ public class RepoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void addRepos(ArrayList<GithubRepo> repos) {
         int pos = this.githubRepos.size();
         this.githubRepos.addAll(repos);
+        Utils.markBookmark(this.githubRepos);
         notifyItemInserted(pos + 1);
     }
 

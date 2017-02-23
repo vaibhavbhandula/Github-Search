@@ -51,6 +51,18 @@ public class Utils {
         return githubRepos;
     }
 
+    public static void markBookmark(ArrayList<GithubRepo> githubRepos) {
+        ArrayList<GithubRepo> githubRepoArrayList = getAllBookmarks();
+        if (githubRepoArrayList == null || githubRepoArrayList.isEmpty()) {
+            return;
+        }
+        for (GithubRepo githubRepo : githubRepos) {
+            if (contains(githubRepoArrayList, githubRepo)) {
+                githubRepo.setBookmark(true);
+            }
+        }
+    }
+
     private static void putBookmarksInPrefs(ArrayList<GithubRepo> githubRepos) {
         Gson gson = new Gson();
         GithubApiResponse githubApiResponse = new GithubApiResponse();
