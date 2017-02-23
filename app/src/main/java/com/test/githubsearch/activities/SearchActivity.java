@@ -57,6 +57,11 @@ public class SearchActivity extends AppCompatActivity {
         handleAdapter();
     }
 
+    @Override public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
     private void readBundle() {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {

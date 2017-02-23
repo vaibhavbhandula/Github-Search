@@ -1,6 +1,5 @@
 package com.test.githubsearch.data;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 
 public class GithubApiResponse {
 
-    @SerializedName("items") @Expose private ArrayList<GithubRepo> repositories = new ArrayList<>();
+    @SerializedName("items") private ArrayList<GithubRepo> repositories = new ArrayList<>();
 
     public ArrayList<GithubRepo> getRepositories() {
         return repositories;

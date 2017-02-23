@@ -73,6 +73,7 @@ public class SplashActivity extends AppCompatActivity {
         if (searchString.isEmpty()) {
             Toast.makeText(this, ResourceUtils.getString(R.string.empty_search), Toast.LENGTH_SHORT).show();
         } else {
+            searchKey.setText("");
             Intent intent = new Intent(this, SearchActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString(SearchActivity.KEY_SEARCH, searchString);
@@ -80,7 +81,6 @@ public class SplashActivity extends AppCompatActivity {
             intent.putExtras(bundle);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            finish();
         }
     }
 
@@ -95,7 +95,6 @@ public class SplashActivity extends AppCompatActivity {
             intent.putExtras(bundle);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            finish();
         }
     }
 

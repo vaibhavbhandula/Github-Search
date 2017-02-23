@@ -1,6 +1,5 @@
 package com.test.githubsearch.data;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -9,12 +8,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class GithubRepo {
 
-    @SerializedName("id") @Expose private int id;
-    @SerializedName("full_name") @Expose private String fullName;
-    @SerializedName("html_url") @Expose private String url;
-    @SerializedName("description") @Expose private String description;
-    @SerializedName("forks") @Expose private int numberOfForks;
-    @SerializedName("watchers") @Expose private int numberOfWatchers;
+    @SerializedName("id") private int id;
+    @SerializedName("full_name") private String fullName;
+    @SerializedName("html_url") private String url;
+    @SerializedName("description") private String description;
+    @SerializedName("forks") private int numberOfForks;
+    @SerializedName("watchers") private int numberOfWatchers;
 
     private boolean bookmark;
 
