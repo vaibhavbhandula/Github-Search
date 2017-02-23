@@ -9,12 +9,14 @@ import android.widget.TextView;
 
 import com.test.githubsearch.R;
 import com.test.githubsearch.data.GithubRepo;
+import com.test.githubsearch.utils.ChromeCustomTabUtils;
 import com.test.githubsearch.utils.ResourceUtils;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * @author Vaibhav Bhandula on 23-02-2017.
@@ -60,9 +62,18 @@ public class RepoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         void bind(int position) {
             repo = githubRepos.get(position);
             tvRepoName.setText(repo.getFullName());
-            tvDescription.setText(repo.getDescription());
+            if (repo.getDescription() == null || repo.getDescription().isEmpty()) {
+                tvDescription.setVisibility(View.GONE);
+            } else {
+                tvDescription.setVisibility(View.VISIBLE);
+                tvDescription.setText(repo.getDescription());
+            }
             tvForks.setText(ResourceUtils.getString(R.string.forks, repo.getNumberOfForks()));
             tvWatchers.setText(ResourceUtils.getString(R.string.watchers, repo.getNumberOfWatchers()));
+        }
+
+        @OnClick(R.id.repo_layout) void openRepo() {
+            ChromeCustomTabUtils.openUrl(context, repo.getUrl());
         }
     }
 }
