@@ -1,7 +1,9 @@
 <resources>
 
+    <dimen name="size4">4dp</dimen>
     <dimen name="size10">10dp</dimen>
     <dimen name="size20">20dp</dimen>
+    <dimen name="size40">40dp</dimen>
     <dimen name="size200">200dp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->

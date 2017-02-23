@@ -1,6 +1,7 @@
 package com.test.githubsearch.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,6 +45,11 @@ public class SplashActivity extends AppCompatActivity {
         }, SPLASH_TIME);
     }
 
+    @Override public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
     private void showSearch() {
         splashImage.setVisibility(View.GONE);
         searchLayout.setVisibility(View.VISIBLE);
@@ -61,6 +67,12 @@ public class SplashActivity extends AppCompatActivity {
         if (searchString.isEmpty()) {
             Toast.makeText(this, ResourceUtils.getString(R.string.empty_search), Toast.LENGTH_SHORT).show();
         } else {
+            Intent intent = new Intent(this, SearchActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(SearchActivity.KEY_SEARCH, searchString);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
         }
     }
