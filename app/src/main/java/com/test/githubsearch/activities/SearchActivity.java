@@ -6,13 +6,23 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.test.githubsearch.R;
+import com.test.githubsearch.data.GithubApiResponse;
+import com.test.githubsearch.data.GithubRepo;
+import com.test.githubsearch.network.ApiClient;
+import com.test.githubsearch.network.ApiInterface;
 import com.test.githubsearch.utils.ResourceUtils;
 import com.test.githubsearch.utils.Utils;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -25,6 +35,8 @@ public class SearchActivity extends AppCompatActivity {
     private int pageNo = 1;
     private ProgressDialog progressDialog;
 
+    private ArrayList<GithubRepo> githubRepos = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +45,7 @@ public class SearchActivity extends AppCompatActivity {
         readBundle();
         setUpToolBar();
         showProgress();
-        makeSearchCall();
+        makeSearchCall(false);
     }
 
     private void readBundle() {
@@ -49,8 +61,33 @@ public class SearchActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    private void makeSearchCall() {
+    private void makeSearchCall(final boolean addToAdapter) {
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<GithubApiResponse> call = apiInterface.searchRepos(searchKey, pageNo);
+        call.enqueue(new Callback<GithubApiResponse>() {
+            @Override public void onResponse(Call<GithubApiResponse> call, Response<GithubApiResponse> response) {
+                hideProgress();
+                if (response.code() == ApiClient.HTTP_OK && response.body() != null) {
+                    githubRepos.addAll(response.body().getRepositories());
+                    if (addToAdapter) {
+                        // notify in adapter of items added
+                    }
+                } else {
+                    onFailure(call, new Throwable());
+                }
+            }
 
+            @Override public void onFailure(Call<GithubApiResponse> call, Throwable t) {
+                hideProgress();
+                Toast.makeText(SearchActivity.this, ResourceUtils.getString(R.string.search_fail),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void searchNextPage() {
+        pageNo++;
+        makeSearchCall(true);
     }
 
     private void showProgress() {
