@@ -13,6 +13,7 @@ import com.test.githubsearch.R;
 import com.test.githubsearch.data.GithubRepo;
 import com.test.githubsearch.utils.ChromeCustomTabUtils;
 import com.test.githubsearch.utils.ResourceUtils;
+import com.test.githubsearch.utils.Utils;
 import com.varunest.sparkbutton.SparkButton;
 import com.varunest.sparkbutton.SparkEventListener;
 
@@ -82,6 +83,11 @@ public class RepoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             bookmarkIcon.setEventListener(new SparkEventListener() {
                 @Override public void onEvent(ImageView button, boolean buttonState) {
                     repo.setBookmark(buttonState);
+                    if (buttonState) {
+                        Utils.addBookmark(repo);
+                    } else {
+                        Utils.removeBookmark(repo.getId());
+                    }
                 }
             });
         }

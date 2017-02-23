@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.test.githubsearch.R;
+import com.test.githubsearch.utils.PreferenceManager;
 import com.test.githubsearch.utils.ResourceUtils;
 
 import butterknife.BindView;
@@ -35,6 +36,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
         ResourceUtils.initialize(getApplicationContext());
+        PreferenceManager.initialize(getApplicationContext());
         searchLayout.setVisibility(View.GONE);
         splashImage.setVisibility(View.VISIBLE);
 
