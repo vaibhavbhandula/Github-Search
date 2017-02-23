@@ -3,12 +3,14 @@ package com.test.githubsearch.activities;
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.test.githubsearch.R;
+import com.test.githubsearch.adapters.RepoAdapter;
 import com.test.githubsearch.data.GithubApiResponse;
 import com.test.githubsearch.data.GithubRepo;
 import com.test.githubsearch.network.ApiClient;
@@ -35,6 +37,7 @@ public class SearchActivity extends AppCompatActivity {
     private int pageNo = 1;
     private ProgressDialog progressDialog;
 
+    private RepoAdapter repoAdapter;
     private ArrayList<GithubRepo> githubRepos = new ArrayList<>();
 
     @Override
@@ -61,6 +64,12 @@ public class SearchActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
+    private void setUpAdapter() {
+        repoAdapter = new RepoAdapter(this, githubRepos);
+        searchView.setLayoutManager(new LinearLayoutManager(this));
+        searchView.setAdapter(repoAdapter);
+    }
+
     private void makeSearchCall(final boolean addToAdapter) {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<GithubApiResponse> call = apiInterface.searchRepos(searchKey, pageNo);
@@ -71,6 +80,8 @@ public class SearchActivity extends AppCompatActivity {
                     githubRepos.addAll(response.body().getRepositories());
                     if (addToAdapter) {
                         // notify in adapter of items added
+                    } else {
+                        setUpAdapter();
                     }
                 } else {
                     onFailure(call, new Throwable());
