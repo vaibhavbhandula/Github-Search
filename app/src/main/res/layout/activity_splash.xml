@@ -48,6 +48,14 @@
             android:layout_marginTop="@dimen/size10"
             android:text="@string/search" />
 
+        <Button
+            android:id="@+id/bt_bookmarks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/size10"
+            android:text="@string/show_bookmarks" />
+
     </LinearLayout>
 
 </RelativeLayout>

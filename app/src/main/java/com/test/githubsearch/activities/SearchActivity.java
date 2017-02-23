@@ -28,12 +28,16 @@ import retrofit2.Response;
 
 public class SearchActivity extends AppCompatActivity {
 
+    public static final String KEY_TYPE = "type";
+    public static final String KEY_BOOKMARK = "bookmarks";
+    public static final String KEY_SEARCH_VIEW = "search_view";
     public static final String KEY_SEARCH = "key_search";
 
     @BindView(R.id.toolbar_layout) Toolbar toolbar;
     @BindView(R.id.search_view) RecyclerView searchView;
 
     private String searchKey = "";
+    private String type = KEY_SEARCH;
     private int pageNo = 1;
     private ProgressDialog progressDialog;
 
@@ -47,14 +51,22 @@ public class SearchActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         readBundle();
         setUpToolBar();
-        showProgress();
-        makeSearchCall(false);
+        handleAdapter();
     }
 
     private void readBundle() {
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null && bundle.containsKey(KEY_SEARCH)) {
-            searchKey = bundle.getString(KEY_SEARCH);
+        if (bundle != null) {
+            if (bundle.containsKey(KEY_SEARCH)) {
+                searchKey = bundle.getString(KEY_SEARCH);
+            }
+            if (bundle.containsKey(KEY_TYPE)) {
+                type = bundle.getString(KEY_TYPE);
+            }
+
+            if (searchKey.isEmpty()) {
+                searchKey = KEY_BOOKMARK;
+            }
         }
     }
 
@@ -62,6 +74,16 @@ public class SearchActivity extends AppCompatActivity {
         TextView toolBarTitle = ButterKnife.findById(toolbar, R.id.toolbar_title);
         toolBarTitle.setText(Utils.firstLetterCapital(searchKey));
         setSupportActionBar(toolbar);
+    }
+
+    private void handleAdapter() {
+        if (type.equals(KEY_SEARCH_VIEW)) {
+            showProgress();
+            makeSearchCall(false);
+        } else {
+            githubRepos = Utils.getAllBookmarks();
+            setUpAdapter();
+        }
     }
 
     private void setUpAdapter() {

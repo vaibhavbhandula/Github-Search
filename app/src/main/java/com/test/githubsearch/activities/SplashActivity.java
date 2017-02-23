@@ -14,8 +14,12 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.test.githubsearch.R;
+import com.test.githubsearch.data.GithubRepo;
 import com.test.githubsearch.utils.PreferenceManager;
 import com.test.githubsearch.utils.ResourceUtils;
+import com.test.githubsearch.utils.Utils;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,6 +76,22 @@ public class SplashActivity extends AppCompatActivity {
             Intent intent = new Intent(this, SearchActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString(SearchActivity.KEY_SEARCH, searchString);
+            bundle.putString(SearchActivity.KEY_TYPE, SearchActivity.KEY_SEARCH_VIEW);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            finish();
+        }
+    }
+
+    @OnClick(R.id.bt_bookmarks) void showBookmarks() {
+        ArrayList<GithubRepo> githubRepos = Utils.getAllBookmarks();
+        if (githubRepos == null || githubRepos.isEmpty()) {
+            Toast.makeText(this, ResourceUtils.getString(R.string.no_bookmark), Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(this, SearchActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(SearchActivity.KEY_TYPE, SearchActivity.KEY_BOOKMARK);
             intent.putExtras(bundle);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

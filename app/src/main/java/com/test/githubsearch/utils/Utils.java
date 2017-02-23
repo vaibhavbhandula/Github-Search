@@ -3,8 +3,11 @@ package com.test.githubsearch.utils;
 import android.util.SparseArray;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.test.githubsearch.data.GithubRepo;
+
+import java.util.ArrayList;
 
 /**
  * @author Vaibhav Bhandula on 23-02-2017.
@@ -31,6 +34,22 @@ public class Utils {
         SparseArray<GithubRepo> sparseArray = getAllBookmarksSparseArray();
         sparseArray.remove(id);
         putHashMapInPrefs(sparseArray);
+    }
+
+    public static ArrayList<GithubRepo> getAllBookmarks() {
+        ArrayList<GithubRepo> githubRepos = new ArrayList<>();
+        SparseArray<GithubRepo> githubRepoSparseArray = getAllBookmarksSparseArray();
+        if (githubRepoSparseArray != null) {
+            Gson gson = new Gson();
+            for (int i = 0; i < githubRepoSparseArray.size(); i++) {
+                int key = githubRepoSparseArray.keyAt(i);
+                JsonObject jsonObject = gson.toJsonTree(githubRepoSparseArray.get(key)).getAsJsonObject();
+                if (!(jsonObject.toString().isEmpty() || jsonObject.toString().equals("{}"))) {
+                    githubRepos.add(gson.fromJson(jsonObject, GithubRepo.class));
+                }
+            }
+        }
+        return githubRepos;
     }
 
     private static SparseArray<GithubRepo> getAllBookmarksSparseArray() {

@@ -8,4 +8,6 @@
     <string name="search_fail">Something went wrong!</string>
     <string name="forks">Forks: %1$d</string>
     <string name="watchers">Watchers: %1$d</string>
+    <string name="show_bookmarks">Show Bookmarks</string>
+    <string name="no_bookmark">No bookmarks available!</string>
 </resources>
