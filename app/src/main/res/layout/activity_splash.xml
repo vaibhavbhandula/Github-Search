@@ -5,14 +5,49 @@
     android:id="@+id/activity_splash"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.test.githubsearch.activities.SplashActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/splash_image"
+        android:layout_width="@dimen/size200"
+        android:layout_height="@dimen/size200"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/ic_launcher" />
+
+    <LinearLayout
+        android:id="@+id/search_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:padding="@dimen/size20"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/enter_search"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_size_20" />
+
+        <EditText
+            android:id="@+id/et_search_key"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size10"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@android:color/black" />
+
+        <Button
+            android:id="@+id/bt_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/size10"
+            android:text="@string/search" />
+
+    </LinearLayout>
+
 </RelativeLayout>
