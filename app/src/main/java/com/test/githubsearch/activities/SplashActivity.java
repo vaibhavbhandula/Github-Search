@@ -89,13 +89,7 @@ public class SplashActivity extends AppCompatActivity {
             Toast.makeText(this, ResourceUtils.getString(R.string.empty_search), Toast.LENGTH_SHORT).show();
         } else {
             searchKey.setText("");
-            Intent intent = new Intent(this, SearchActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString(SearchActivity.KEY_SEARCH, searchString);
-            bundle.putString(SearchActivity.KEY_TYPE, SearchActivity.KEY_SEARCH_VIEW);
-            intent.putExtras(bundle);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            startSearchActivity(searchString, SearchActivity.KEY_SEARCH_VIEW);
         }
     }
 
@@ -108,13 +102,24 @@ public class SplashActivity extends AppCompatActivity {
         if (githubRepos == null || githubRepos.isEmpty()) {
             Toast.makeText(this, ResourceUtils.getString(R.string.no_bookmark), Toast.LENGTH_SHORT).show();
         } else {
-            Intent intent = new Intent(this, SearchActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString(SearchActivity.KEY_TYPE, SearchActivity.KEY_BOOKMARK);
-            intent.putExtras(bundle);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            startSearchActivity("", SearchActivity.KEY_BOOKMARK);
         }
+    }
+
+    /**
+     * Starts Search Activity
+     *
+     * @param searchItem Search Key
+     * @param type       what type of activity
+     */
+    private void startSearchActivity(String searchItem, String type) {
+        Intent intent = new Intent(this, SearchActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(SearchActivity.KEY_SEARCH, searchItem);
+        bundle.putString(SearchActivity.KEY_TYPE, type);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     /**

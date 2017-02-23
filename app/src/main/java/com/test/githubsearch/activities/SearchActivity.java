@@ -133,7 +133,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override public void onResponse(Call<GithubApiResponse> call, Response<GithubApiResponse> response) {
                 hideProgress();
                 if (response.code() == ApiClient.HTTP_OK && response.body() != null) {
-                    if (response.body().getRepositories() == null || response.body().getRepositories().isEmpty()) {
+                    if (response.body().getRepositories() == null ||
+                            response.body().getRepositories().isEmpty()) {
                         Toast.makeText(SearchActivity.this, ResourceUtils.getString(R.string.empty_results),
                                 Toast.LENGTH_SHORT).show();
                     } else {
