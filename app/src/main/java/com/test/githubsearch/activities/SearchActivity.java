@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +37,7 @@ public class SearchActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar_layout) Toolbar toolbar;
     @BindView(R.id.search_view) RecyclerView searchView;
+    @BindView(R.id.progressBar) ProgressBar progressBar;
 
     private String searchKey = "";
     private String type = KEY_SEARCH;
@@ -125,6 +128,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void searchNextPage() {
+        progressBar.setVisibility(View.VISIBLE);
         pageNo++;
         makeSearchCall(true);
     }
@@ -133,6 +137,7 @@ public class SearchActivity extends AppCompatActivity {
         if (repoAdapter != null) {
             repoAdapter.addRepos(repos);
         }
+        progressBar.setVisibility(View.GONE);
     }
 
     private void showProgress() {
