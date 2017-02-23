@@ -8,6 +8,9 @@ import java.util.ArrayList;
  * @author Vaibhav Bhandula on 23-02-2017.
  */
 
+/**
+ * Wrapper class for Github Api Response
+ */
 public class GithubApiResponse {
 
     @SerializedName("items") private ArrayList<GithubRepo> repositories = new ArrayList<>();

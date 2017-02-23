@@ -15,6 +15,9 @@ public class ApiClient {
 
     private static Retrofit retrofit = null;
 
+    /**
+     * Returns Retrofit client for Github URL
+     */
     public static Retrofit getClient() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()

@@ -62,6 +62,11 @@ public class SearchActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
+    /**
+     * Reading bundle from the Intent
+     * and then Setting values for the search term or
+     * type of adapter Eg: either for search or for bookmarks
+     */
     private void readBundle() {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -78,12 +83,20 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Setting custom toolbar
+     */
     private void setUpToolBar() {
         TextView toolBarTitle = ButterKnife.findById(toolbar, R.id.toolbar_title);
         toolBarTitle.setText(Utils.firstLetterCapital(searchKey));
         setSupportActionBar(toolbar);
     }
 
+    /**
+     * this method handles what type is there
+     * if search then make search call
+     * else show bookmarks
+     */
     private void handleAdapter() {
         if (type.equals(KEY_SEARCH_VIEW)) {
             showProgress();
@@ -94,12 +107,25 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * sets up the adapter
+     */
     private void setUpAdapter() {
         repoAdapter = new RepoAdapter(this, githubRepos);
         searchView.setLayoutManager(new LinearLayoutManager(this));
         searchView.setAdapter(repoAdapter);
     }
 
+    /**
+     * makes an api call to github server to retrieve repos
+     * according to search term
+     * This checks if no results are there then shows a toast.
+     *
+     * @param addToAdapter boolean value representing whether
+     *                     add to adapter or not
+     *                     True - pagination call, add items to adapter
+     *                     False - first search call, set up the adapter
+     */
     private void makeSearchCall(final boolean addToAdapter) {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<GithubApiResponse> call = apiInterface.searchRepos(searchKey, pageNo);
@@ -132,6 +158,10 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method makes the api call for pagination
+     * called from the adapter
+     */
     public void searchNextPage() {
         if (!type.equals(KEY_BOOKMARK)) {
             progressBar.setVisibility(View.VISIBLE);
@@ -140,6 +170,12 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This method adds the repos retrieved from api call
+     * from pagination
+     *
+     * @param repos ArrayList of Github Repositories
+     */
     private void addInAdapter(ArrayList<GithubRepo> repos) {
         if (repoAdapter != null) {
             repoAdapter.addRepos(repos);
@@ -147,11 +183,17 @@ public class SearchActivity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
     }
 
+    /**
+     * Show Progress Dialog
+     */
     private void showProgress() {
         progressDialog = ProgressDialog.show(this, null, ResourceUtils.getString(R.string.loading), true, false);
         progressDialog.setCancelable(false);
     }
 
+    /**
+     * Hides Progress Dialog
+     */
     private void hideProgress() {
         if (progressDialog != null) {
             progressDialog.dismiss();

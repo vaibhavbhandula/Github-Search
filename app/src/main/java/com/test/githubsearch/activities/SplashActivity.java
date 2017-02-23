@@ -39,8 +39,12 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
+
+        // Initialize Preference and Resources
         ResourceUtils.initialize(getApplicationContext());
         PreferenceManager.initialize(getApplicationContext());
+
+        // Show splash at start
         searchLayout.setVisibility(View.GONE);
         splashImage.setVisibility(View.VISIBLE);
 
@@ -56,17 +60,28 @@ public class SplashActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
+    /**
+     * show Search View
+     */
     private void showSearch() {
         splashImage.setVisibility(View.GONE);
         searchLayout.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Hide Keyboard
+     */
     private void hideKeyboard() {
         InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow((null == getCurrentFocus()) ?
                 null : getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
+    /**
+     * Handle click of search button
+     * Checks for the search term entered.
+     * If empty shows a toast.
+     */
     @OnClick(R.id.bt_search) void search() {
         hideKeyboard();
         String searchString = searchKey.getText().toString();
@@ -84,6 +99,10 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Handle click of bookmarks button
+     * If no bookmarks, shows a toast.
+     */
     @OnClick(R.id.bt_bookmarks) void showBookmarks() {
         ArrayList<GithubRepo> githubRepos = Utils.getAllBookmarks();
         if (githubRepos == null || githubRepos.isEmpty()) {
@@ -98,6 +117,10 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Handling of Enter or Done of Keyboard
+     * Calls search method
+     */
     @OnEditorAction(R.id.et_search_key) boolean setEditorAction(int actionId) {
         if (actionId == EditorInfo.IME_ACTION_DONE) {
             search();

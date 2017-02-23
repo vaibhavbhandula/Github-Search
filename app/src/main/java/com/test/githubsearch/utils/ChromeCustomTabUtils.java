@@ -12,6 +12,12 @@ import com.test.githubsearch.R;
 
 public class ChromeCustomTabUtils {
 
+    /**
+     * Opens the url in chrome custom tab
+     *
+     * @param context Context reference
+     * @param url     Url of WebPage
+     */
     public static void openUrl(Context context, String url) {
 
         if (context == null || url == null || url.isEmpty()) {

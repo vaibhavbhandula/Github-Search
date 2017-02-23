@@ -6,6 +6,10 @@ import com.google.gson.annotations.SerializedName;
  * @author Vaibhav Bhandula on 23-02-2017.
  */
 
+/**
+ * Class for Github Repo Object
+ * with getters and setters
+ */
 public class GithubRepo {
 
     @SerializedName("id") private int id;

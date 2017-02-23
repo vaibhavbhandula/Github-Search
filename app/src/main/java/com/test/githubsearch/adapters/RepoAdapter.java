@@ -52,6 +52,13 @@ public class RepoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return githubRepos.size();
     }
 
+    /**
+     * Adds repos to the current ArrayList.
+     * Called from the SearchActivity.
+     * Used for pagination
+     *
+     * @param repos ArrayList of Github Repos
+     */
     public void addRepos(ArrayList<GithubRepo> repos) {
         int pos = this.githubRepos.size();
         this.githubRepos.addAll(repos);
@@ -76,6 +83,10 @@ public class RepoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ButterKnife.bind(this, itemView);
         }
 
+        /**
+         * Binds the view according to position
+         * Sets the values and listeners
+         */
         void bind(int position) {
             setWidth();
             repo = githubRepos.get(position);
@@ -109,6 +120,11 @@ public class RepoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
         }
 
+        /**
+         * Set Width for the Repo Name TextView
+         * Calculates total width of layout and
+         * remove width for bookmark icon
+         */
         private void setWidth() {
             RelativeLayout layout = ButterKnife.findById(view, R.id.name_layout);
             layout.measure(0, 0);
@@ -118,6 +134,10 @@ public class RepoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tvRepoName.getLayoutParams().width = nameLayoutWidth - likeButtonWidth;
         }
 
+        /**
+         * Handle click of whole layout
+         * Open Github Repo in ChromeCustomTab
+         */
         @OnClick(R.id.repo_layout) void openRepo() {
             ChromeCustomTabUtils.openUrl(context, repo.getUrl());
         }
