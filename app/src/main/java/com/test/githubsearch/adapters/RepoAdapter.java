@@ -89,11 +89,13 @@ public class RepoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             bookmarkIcon.setChecked(repo.isBookmark());
             bookmarkIcon.setEventListener(new SparkEventListener() {
                 @Override public void onEvent(ImageView button, boolean buttonState) {
-                    repo.setBookmark(buttonState);
                     if (buttonState) {
+                        repo.setBookmark(true);
                         Utils.addBookmark(repo);
                     } else {
-                        Utils.removeBookmark(repo.getId());
+                        if (Utils.removeBookmark(repo)) {
+                            repo.setBookmark(false);
+                        }
                     }
                 }
             });

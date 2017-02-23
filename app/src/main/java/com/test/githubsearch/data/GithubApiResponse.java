@@ -12,6 +12,10 @@ public class GithubApiResponse {
 
     @SerializedName("items") private ArrayList<GithubRepo> repositories = new ArrayList<>();
 
+    public void setRepositories(ArrayList<GithubRepo> repositories) {
+        this.repositories = repositories;
+    }
+
     public ArrayList<GithubRepo> getRepositories() {
         return repositories;
     }
