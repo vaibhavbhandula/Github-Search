@@ -7,3 +7,5 @@
 `Using Github Api's`
 
 `View Repo Webpage in App`
+
+`Option to bookmarks repos and view bookmarks`
