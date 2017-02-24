@@ -21,6 +21,30 @@ public class GithubRepo {
 
     private boolean bookmark;
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setNumberOfForks(int numberOfForks) {
+        this.numberOfForks = numberOfForks;
+    }
+
+    public void setNumberOfWatchers(int numberOfWatchers) {
+        this.numberOfWatchers = numberOfWatchers;
+    }
+
     public int getId() {
         return id;
     }

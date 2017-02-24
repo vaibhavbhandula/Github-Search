@@ -117,7 +117,7 @@ public class Utils {
      * @param repo      Github Repo
      * @return boolean
      */
-    private static boolean contains(ArrayList<GithubRepo> arrayList, GithubRepo repo) {
+    public static boolean contains(ArrayList<GithubRepo> arrayList, GithubRepo repo) {
         for (GithubRepo githubRepo : arrayList) {
             if (githubRepo.getId() == repo.getId()) {
                 return true;
@@ -134,7 +134,7 @@ public class Utils {
      * @param repo      Github Repo
      * @return int index of Repo if found else 0
      */
-    private static int getIndex(ArrayList<GithubRepo> arrayList, GithubRepo repo) {
+    public static int getIndex(ArrayList<GithubRepo> arrayList, GithubRepo repo) {
         if (contains(arrayList, repo)) {
             for (GithubRepo githubRepo : arrayList) {
                 if (githubRepo.getId() == repo.getId()) {
