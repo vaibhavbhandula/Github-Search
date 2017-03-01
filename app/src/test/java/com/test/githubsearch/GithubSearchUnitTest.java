@@ -62,11 +62,6 @@ public class GithubSearchUnitTest {
     }
 
     @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
-
-    @Test
     public void getStringTest() throws Exception {
         String appName = "Github Search";
         String result = ResourceUtils.getString(R.string.app_name);
@@ -109,4 +104,13 @@ public class GithubSearchUnitTest {
         Utils.removeBookmark(githubRepo);
         assertFalse(!Utils.getAllBookmarks().isEmpty());
     }
+
+    @Test
+    public void markBookMarkTest() throws Exception {
+        Utils.addBookmark(githubRepo);
+        githubRepo.setBookmark(false);
+        Utils.markBookmark(githubRepos);
+        assertFalse(!githubRepos.get(0).isBookmark());
+    }
+
 }
