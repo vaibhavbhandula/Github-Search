@@ -91,11 +91,7 @@ public class GithubSearchUnitTest {
     public void addBookMarkTest() throws Exception {
         Utils.addBookmark(githubRepo);
         ArrayList<GithubRepo> githubRepoArrayList = Utils.getAllBookmarks();
-        for (GithubRepo repo : githubRepoArrayList) {
-            for (GithubRepo repo1 : githubRepos) {
-                assertEquals(repo.getId(), repo1.getId());
-            }
-        }
+        assertEquals(githubRepoArrayList.get(0).getId(), githubRepo.getId());
     }
 
     @Test
